@@ -6,15 +6,15 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="15"
-8-->D:\AndroidStudioProjects\1112\yh-android\lib_base\src\main\AndroidManifest.xml
+8-->D:\AndroidStudioProjects\state-grid-android\lib_base\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="27" />
-9-->D:\AndroidStudioProjects\1112\yh-android\lib_base\src\main\AndroidManifest.xml
+9-->D:\AndroidStudioProjects\state-grid-android\lib_base\src\main\AndroidManifest.xml
 10
 11    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-11-->D:\AndroidStudioProjects\1112\yh-android\lib_base\src\main\AndroidManifest.xml:4:5-79
-11-->D:\AndroidStudioProjects\1112\yh-android\lib_base\src\main\AndroidManifest.xml:4:22-76
+11-->D:\AndroidStudioProjects\state-grid-android\lib_base\src\main\AndroidManifest.xml:4:5-79
+11-->D:\AndroidStudioProjects\state-grid-android\lib_base\src\main\AndroidManifest.xml:4:22-76
 12    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-12-->D:\AndroidStudioProjects\1112\yh-android\lib_base\src\main\AndroidManifest.xml:5:5-75
-12-->D:\AndroidStudioProjects\1112\yh-android\lib_base\src\main\AndroidManifest.xml:5:22-72
+12-->D:\AndroidStudioProjects\state-grid-android\lib_base\src\main\AndroidManifest.xml:5:5-75
+12-->D:\AndroidStudioProjects\state-grid-android\lib_base\src\main\AndroidManifest.xml:5:22-72
 13
 14</manifest>
