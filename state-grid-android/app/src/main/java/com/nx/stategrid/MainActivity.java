@@ -1,21 +1,33 @@
 package com.nx.stategrid;
 
+import android.content.Intent;
 import android.view.View;
 
 import com.nun.lib_base.mvp.MvpActivity;
 import com.nx.stategrid.presenter.MainPresenter;
 import com.nx.stategrid.view.MainView;
 
+import butterknife.OnClick;
+
 public class MainActivity extends MvpActivity<MainView, MainPresenter> implements MainView {
 
     @Override
     public void initView() {
-        inflateLayout(R.layout.activity_main);
+        inflateLayout(R.layout.activity_main_layout);
     }
 
     @Override
     public void initData() {
 
+    }
+
+    @OnClick({R.id.commit_report_tv})
+    public void myOnclick(View view) {
+        switch (view.getId()) {
+            case R.id.commit_report_tv:
+                startActivity(new Intent(this, LoginActivity.class));
+                break;
+        }
     }
 
     @Override

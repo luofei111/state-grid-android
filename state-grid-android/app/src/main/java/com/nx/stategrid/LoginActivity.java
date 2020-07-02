@@ -11,12 +11,13 @@ import com.nx.stategrid.view.LoginView;
  * @Date: 2020/7/2 17:50
  * @Description:
  */
-public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> {
+public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> implements LoginView {
 
     @Override
     public void initView() {
-
+        inflateLayout(R.layout.activity_login_layout);
     }
+
 
     @Override
     public void initData() {
@@ -30,6 +31,51 @@ public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> {
 
     @Override
     public void onClicked(View v, int action, String extra) {
+
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void toast(CharSequence s) {
+
+    }
+
+    @Override
+    public void toast(int id) {
+
+    }
+
+    @Override
+    public void showNullLayout() {
+
+    }
+
+    @Override
+    public void hideNullLayout() {
+
+    }
+
+    @Override
+    public void showErrorLayout(View.OnClickListener listener) {
+
+    }
+
+    @Override
+    public void hideErrorLayout() {
+
+    }
+
+    @Override
+    public void onError(String errorInfo) {
 
     }
 }
