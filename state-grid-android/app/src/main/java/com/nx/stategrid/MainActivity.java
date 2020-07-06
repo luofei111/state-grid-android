@@ -2,32 +2,58 @@ package com.nx.stategrid;
 
 import android.content.Intent;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.nun.lib_base.mvp.MvpActivity;
+import com.nx.stategrid.adapter.MenuListAdapter;
+import com.nx.stategrid.dto.Menu;
 import com.nx.stategrid.presenter.MainPresenter;
 import com.nx.stategrid.view.MainView;
+import com.nx.stategrid.weiget.recycleview.BaseRecycleViewAdapter;
+import com.nx.stategrid.weiget.recycleview.BaseRecycleViewGrid;
 
-import butterknife.OnClick;
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 
 public class MainActivity extends MvpActivity<MainView, MainPresenter> implements MainView {
+
+    @BindView(R.id.main_menu_grid)
+    BaseRecycleViewGrid mainMenuGrid;
 
     @Override
     public void initView() {
         inflateLayout(R.layout.activity_main_layout);
+        mainMenuGrid.setColumNum(4, false);
     }
 
     @Override
     public void initData() {
+        MenuListAdapter adapter = new MenuListAdapter(this, R.layout.menu_list_item_layout);
+        mainMenuGrid.setAdapter(adapter);
+        List<Menu> menus = new ArrayList<>();
+        menus.add(new Menu(getResources().getString(R.string.template_manager), R.mipmap.add_group_icon));
+        menus.add(new Menu(getResources().getString(R.string.commit_record), R.mipmap.add_group_icon));
+        adapter.setData(menus);
 
-    }
+        adapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(ViewGroup parent, View v, int position) {
 
-    @OnClick({R.id.commit_report_tv})
-    public void myOnclick(View view) {
-        switch (view.getId()) {
-            case R.id.commit_report_tv:
-                startActivity(new Intent(this, LoginActivity.class));
-                break;
-        }
+                Menu model = (Menu) v.getTag();
+                switch (model.getTitle()) {
+
+                    case "模板管理":
+                        startActivity(new Intent(MainActivity.this, TemplateManagerActivity.class));
+                        break;
+
+                    case "提交记录":
+
+                        break;
+                }
+            }
+        });
     }
 
     @Override

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.nx.stategrid">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".app.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -19,7 +24,16 @@
 
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".QuestionActivity"
             android:windowSoftInputMode="adjustPan" />
+
+        <activity android:name=".TemplateManagerActivity" />
+
     </application>
 
 </manifest>

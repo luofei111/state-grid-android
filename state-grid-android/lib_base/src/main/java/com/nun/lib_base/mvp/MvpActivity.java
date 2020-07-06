@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -38,7 +39,6 @@ public abstract class MvpActivity<V, P extends BasePresent<V>> extends FragmentA
 
     @SuppressLint("SourceLockedOrientationActivity")
     public void inflateLayout(int layoutID) {
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(layoutID);
         ButterKnife.bind(this);
     }

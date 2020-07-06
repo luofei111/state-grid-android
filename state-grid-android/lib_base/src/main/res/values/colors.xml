@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="title_bar_color">#3b498a</color>
     <color name="edittext_hint_color">#c5c5c5</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
 
     <color name="defaultColor">#92B4F4</color>
     <color name="transparent">#00000000</color>
+
+    <!--字体黑色-->
+    <color name="fontcolorblack">#404040</color>
+    <!-- 字体颜色深 -->
+    <color name="fontcolordeep">#e1333333</color>
+    <!-- 字体颜色浅 -->
+    <color name="fontcolorlight">#666666</color>
+    <!-- 字体颜色浅 -->
+    <color name="fontcolorsmall">#909090</color>
+
+    <!-- 字体颜色浅 -->
+    <color name="fontcolorbluelight">#828cbe</color>
+
+    <!-- 字体颜色浅 -->
+    <color name="fontcolorblue">#3993e9</color>
+    <!-- 字体颜色浅 -->
+    <color name="fontcolorred">#FF3232</color>
+
+    <!-- 字体颜色浅 -->
+    <color name="fontcolorgreen">#10725c</color>
 </resources>

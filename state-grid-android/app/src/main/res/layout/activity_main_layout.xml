@@ -5,49 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:src="@mipmap/add_group_icon" />
-
-    <LinearLayout
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+        android:id="@+id/tb"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        app:centerText="@string/nx_state_grid"
+        app:centerTextColor="@color/white"
+        app:centerTextSize="18sp"
+        app:centerType="textView"
+        app:showBottomLine="false"
+        app:statusBarColor="@color/title_bar_color"
+        app:statusBarMode="light"
+        app:titleBarColor="@color/title_bar_color" />
 
-        <TextView
-            android:id="@+id/commit_report_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableTop="@mipmap/add_group_icon"
-            android:drawablePadding="10dp"
-            android:gravity="center"
-            android:text="提交报告" />
 
-        <TextView
-            android:id="@+id/report_record_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:drawableTop="@mipmap/add_group_icon"
-            android:drawablePadding="10dp"
-            android:gravity="center"
-            android:text="提交记录" />
-
-        <TextView
-            android:id="@+id/report_approlval_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:drawableTop="@mipmap/add_group_icon"
-            android:drawablePadding="10dp"
-            android:gravity="center"
-            android:text="报告审批" />
-
-    </LinearLayout>
+    <com.nx.stategrid.weiget.recycleview.BaseRecycleViewGrid
+        android:id="@+id/main_menu_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_10" />
 
 </LinearLayout>

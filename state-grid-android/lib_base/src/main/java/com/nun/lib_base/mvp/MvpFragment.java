@@ -8,13 +8,15 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
+
 import butterknife.ButterKnife;
 
 /**
  * Created by luofei on 2017/8/19 0019.
  */
 
-public abstract class MvpFragment<V, P extends BasePresent<V>> extends Fragment {
+public abstract class MvpFragment<V, P extends BasePresent<V>> extends Fragment implements CommonTitleBar.OnTitleBarListener {
 
     protected P presenter;
 

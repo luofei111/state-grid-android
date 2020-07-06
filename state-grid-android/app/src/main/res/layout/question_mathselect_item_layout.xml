@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:paddingTop="@dimen/dimen_5">
+
+    <TextView
+        android:id="@+id/math_select_title_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="装置背板"
+        android:textColor="@color/fontcolorblack"
+        android:textSize="@dimen/font_10" />
+
+    <TextView
+        android:id="@+id/math_select_tv"
+        android:layout_width="@dimen/dimen_50"
+        android:layout_height="@dimen/dimen_20"
+        android:gravity="center"
+        android:text="√"
+        android:textColor="@color/fontcolorgreen"
+        android:textSize="@dimen/font_12" />
+
+</LinearLayout>

@@ -7,5 +7,5 @@ package com.nun.lib_base.http;
  */
 public class NetWorkBaseUrl {
 
-    public static final String ROOT_URl = "https://bshop.bmbs.tech/mock/20/";
+    public static final String ROOT_URl = "http://192.168.16.250:3000/mock/14/";
 }

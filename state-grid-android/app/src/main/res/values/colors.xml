@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#008B8B</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#10725c</color>
+    <color name="colorPrimaryDark">#10725c</color>
+    <color name="colorAccent">#10725c</color>
+
+    <color name="title_bar_color">#10725c</color>
+    <color name="app_default_bg_color">#f7f7f8</color>
 </resources>
