@@ -1,8 +1,9 @@
-package com.nx.stategrid;
+package com.nx.stategrid.ui;
 
 import android.view.View;
 
 import com.nun.lib_base.mvp.MvpActivity;
+import com.nx.stategrid.R;
 import com.nx.stategrid.presenter.LoginPresenter;
 import com.nx.stategrid.view.LoginView;
 

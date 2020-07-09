@@ -10,6 +10,6 @@
         android:layout_height="wrap_content"
         android:text="5.3CT断线检查"
         android:textColor="@color/fontcolorblack"
-        android:textSize="@dimen/font_10" />
+        android:textSize="@dimen/font_22" />
 
 </LinearLayout>

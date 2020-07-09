@@ -1,12 +1,15 @@
-package com.nx.stategrid;
+package com.nx.stategrid.ui;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.mylhyl.circledialog.CircleDialog;
 import com.mylhyl.circledialog.callback.ConfigButton;
 import com.mylhyl.circledialog.callback.ConfigItems;
@@ -18,15 +21,23 @@ import com.mylhyl.circledialog.params.TitleParams;
 import com.mylhyl.circledialog.res.values.CircleColor;
 import com.mylhyl.circledialog.view.listener.OnLvItemClickListener;
 import com.nun.lib_base.mvp.MvpFragment;
+import com.nun.lib_base.utils.SPUtils;
 import com.nun.lib_base.utils.ToastUtils;
+import com.nun.lib_base.utils.date.DateUtil;
+import com.nx.stategrid.R;
 import com.nx.stategrid.adapter.QuestionListAdapter;
+import com.nx.stategrid.dto.BodyBean;
+import com.nx.stategrid.dto.CommitRecord;
 import com.nx.stategrid.dto.QuestionInfo;
 import com.nx.stategrid.presenter.QuestionPresenter;
+import com.nx.stategrid.utils.AssetsUtils;
+import com.nx.stategrid.utils.Constans;
 import com.nx.stategrid.view.QuestionView;
 import com.nx.stategrid.weiget.recycleview.BaseRecycleViewList;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +58,7 @@ public class QuestionFragment extends MvpFragment<QuestionView, QuestionPresente
     @BindView(R.id.question_list)
     BaseRecycleViewList questionRecycleList;
 
-    private List<QuestionInfo.DataBean.ContentBean.BodyBean> data;
+    private List<BodyBean> data;
 
     private QuestionListAdapter adapter;
 
@@ -55,12 +66,30 @@ public class QuestionFragment extends MvpFragment<QuestionView, QuestionPresente
 
     private String title;
 
-    public QuestionFragment(List<QuestionInfo.DataBean.ContentBean.BodyBean> data) {
+    private int homeLength;
+
+    private String reportId;
+
+    private boolean isReport;
+
+    public QuestionFragment(List<BodyBean> data) {
         this.data = data;
     }
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setHomeLength(int homeLength) {
+        this.homeLength = homeLength;
+    }
+
+    public void setReportId(String reportId) {
+        this.reportId = reportId;
+    }
+
+    public void setReport(boolean report) {
+        isReport = report;
     }
 
     @Override
@@ -73,13 +102,9 @@ public class QuestionFragment extends MvpFragment<QuestionView, QuestionPresente
     public void initData() {
         titleTv.setText(title);
         paramsMap = new HashMap<>();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         adapter = new QuestionListAdapter(getActivity(), data);
         adapter.setOprateCallBack(this);
+        // adapter.setReport(isReport);
         questionRecycleList.setAdapter(adapter);
     }
 
@@ -88,8 +113,50 @@ public class QuestionFragment extends MvpFragment<QuestionView, QuestionPresente
         switch (view.getId()) {
             case R.id.commit_report_tv:
 
-                toast("修改：“" + paramsMap.size());
+                List<BodyBean> homeData = adapter.getDate().subList(0, homeLength);
+                List<BodyBean> bodyData = adapter.getDate().subList(homeLength, adapter.getDate().size());
 
+                // String questionInfoJson = (String) SPUtils.get(getActivity(), reportId, "");
+
+                // QuestionInfo questionInfo = new Gson().fromJson(questionInfoJson, QuestionInfo.class);
+
+                // ?
+
+                QuestionInfo questionInfo;
+                if (Constans.reportId1.equals(reportId)){
+                    questionInfo = new Gson().fromJson(AssetsUtils.getJsonStr(getActivity(), "templatefile1"), QuestionInfo.class);
+                }else {
+                    questionInfo = new Gson().fromJson(AssetsUtils.getJsonStr(getActivity(), "templatefile2"), QuestionInfo.class);
+                }
+
+                questionInfo.getData().getContent().setHome(homeData);
+
+                questionInfo.getData().getContent().setBody(bodyData);
+
+                // 保存提交记录（reportId）
+                String questionInfoStr = new Gson().toJson(questionInfo);
+                SPUtils.put(getActivity(), questionInfo.getData().getReportId(), questionInfoStr);
+
+                CommitRecord commitRecord = new CommitRecord();
+                commitRecord.setReportId(questionInfo.getData().getReportId());
+                commitRecord.setReportTitle(questionInfo.getData().getReportName());
+                commitRecord.setReportTime(DateUtil.getDateCn(new Date()));
+                for (BodyBean homeDatum : homeData) {
+                    if ("stationName".equals(homeDatum.getKey())) {
+                        commitRecord.setReportPerson(homeDatum.getValue());
+                    }
+                    if ("00002".equals(homeDatum.getKey())) {
+                        commitRecord.setReportDevice(homeDatum.getValue());
+                    }
+                    if ("00001".equals(homeDatum.getKey())) {
+                        commitRecord.setReportStation(homeDatum.getValue());
+                    }
+                }
+
+                String commitRecordStr = new Gson().toJson(commitRecord);
+                SPUtils.put(getActivity(), questionInfo.getData().getReportId() + "-overview", commitRecordStr);
+                getActivity().setResult(200);
+                getActivity().finish();
                 break;
         }
     }
@@ -118,20 +185,17 @@ public class QuestionFragment extends MvpFragment<QuestionView, QuestionPresente
                 .configPositive(new ConfigButton() {
                     @Override
                     public void onConfig(ButtonParams params) {
-                        params.textSize = 14;
+                        params.textSize = 18;
                         params.topMargin = 0;
                     }
                 })
-                .setPositive("取消", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+                .setPositive("取消", view -> {
 
-                    }
                 }).configItems(new ConfigItems() {
             @Override
             public void onConfig(ItemsParams params) {
                 params.textColor = Color.parseColor("#3993e9");
-                params.textSize = 12;
+                params.textSize = 18;
             }
         }).setItems(items, new OnLvItemClickListener() {
             @Override

@@ -4,8 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/question_vp"
+    <FrameLayout
+        android:id="@+id/fragment_continer"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </LinearLayout>

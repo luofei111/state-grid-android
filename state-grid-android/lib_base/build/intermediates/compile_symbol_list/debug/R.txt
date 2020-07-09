@@ -876,6 +876,7 @@ int color error_color_material_dark 0x0
 int color error_color_material_light 0x0
 int color fontcolorblack 0x0
 int color fontcolorblue 0x0
+int color fontcolorbluedeep 0x0
 int color fontcolorbluelight 0x0
 int color fontcolordeep 0x0
 int color fontcolorgreen 0x0

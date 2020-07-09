@@ -23,9 +23,6 @@ public class HTTPUtils {
         Gson gson = new Gson();
         String jsonParams = gson.toJson(object);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonParams);
-       // if (AppUtils.isAppDebug()) {
-            Log.i("RequestBody：", url + "----->requestjson======>" + jsonParams);
-       // }
         return body;
     }
 }

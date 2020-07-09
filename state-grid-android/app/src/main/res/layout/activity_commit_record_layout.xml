@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.MainActivity">
+    android:orientation="vertical">
 
     <com.wuhenzhizao.titlebar.widget.CommonTitleBar
         android:id="@+id/template_manager_tb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:centerText="@string/template_manager"
+        app:centerText="@string/report_list"
         app:centerTextColor="@color/white"
         app:centerTextSize="18sp"
         app:centerType="textView"
@@ -20,10 +18,9 @@
         app:statusBarMode="light"
         app:titleBarColor="@color/title_bar_color" />
 
-    <com.nx.stategrid.weiget.recycleview.BaseRecycleViewGrid
-        android:id="@+id/template_manager_grid"
+    <com.nx.stategrid.weiget.recycleview.BaseRecycleViewList
+        android:id="@+id/commit_record_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dimen_10" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

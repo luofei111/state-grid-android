@@ -10,6 +10,7 @@
 
     <!--字体黑色-->
     <color name="fontcolorblack">#404040</color>
+    <color name="fontcolorbluedeep">#293246</color>
     <!-- 字体颜色深 -->
     <color name="fontcolordeep">#e1333333</color>
     <!-- 字体颜色浅 -->

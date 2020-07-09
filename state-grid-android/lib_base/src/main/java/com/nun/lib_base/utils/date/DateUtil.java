@@ -602,6 +602,16 @@ public class DateUtil {
     }
 
     /**
+     * 获取日期。默认yyyy年MM月dd日格式。失败返回null。
+     *
+     * @param date 日期
+     * @return 日期
+     */
+    public static String getDateCn(Date date) {
+        return DateToString(date, DateStyle.YYYY_MM_DD_CN);
+    }
+
+    /**
      * 获取日期的时间。默认HH:mm:ss格式。失败返回null。
      *
      * @param date 日期字符串

@@ -6,12 +6,22 @@ package com.nx.stategrid.dto;
  * @Description:
  */
 public class Menu {
+    private String reportId;
     private String title;
     private int icon;
 
-    public Menu(String title, int icon) {
+    public Menu(String reportId, String title, int icon) {
+        this.reportId = reportId;
         this.title = title;
         this.icon = icon;
+    }
+
+    public String getReportId() {
+        return reportId;
+    }
+
+    public void setReportId(String reportId) {
+        this.reportId = reportId;
     }
 
     public String getTitle() {

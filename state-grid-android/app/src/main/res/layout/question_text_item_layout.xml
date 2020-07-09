@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="要求：装置背板、把手、压板、空开、端子排的接线紧固可靠（已紧固打√）"
-        android:textColor="@color/fontcolorblack"
-        android:textSize="@dimen/font_10" />
+        android:textColor="@color/fontcolorbluedeep"
+        android:textSize="@dimen/font_20" />
 
 </LinearLayout>

@@ -877,6 +877,7 @@ color error_color_material_dark
 color error_color_material_light
 color fontcolorblack
 color fontcolorblue
+color fontcolorbluedeep
 color fontcolorbluelight
 color fontcolordeep
 color fontcolorgreen

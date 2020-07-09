@@ -4,6 +4,7 @@ import java.util.Map;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.HeaderMap;
@@ -20,11 +21,13 @@ import retrofit2.http.QueryMap;
 public interface RetrofitSerives {
 
     @POST("{path}")
+    Call<BaseResponse> getResponseInfo(@Path(value = "path", encoded = true) String path, @Body RequestBody requestBody);
+
+    @POST("{path}")
     Call<BaseResponse> getResponseInfo(@Path(value = "path", encoded = true) String path, @QueryMap Map<String, String> queryParams);
 
     @GET("{path}")
     Call<BaseResponse> getResponseInfoByGet(@Path(value = "path", encoded = true) String path, @QueryMap Map<String, String> queryParams);
-
 
     @Multipart
     @POST("{path}")

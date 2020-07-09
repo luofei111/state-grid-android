@@ -3,11 +3,15 @@ package com.nun.lib_base.mvp;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.nun.lib_base.R;
+import com.nun.lib_base.http.BaseRequest;
 import com.nun.lib_base.http.BaseResponse;
+import com.nun.lib_base.http.HTTPUtils;
 import com.nun.lib_base.http.InitRetrofit;
 import com.nun.lib_base.http.OnResonseListener;
 import com.nun.lib_base.http.RetrofitSerives;
 import com.nun.lib_base.http.ServiceHelper;
+import com.nun.lib_base.utils.SPUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +40,42 @@ public abstract class BasePresent<T> {
 
     public void detach() {
         //this.view = null;
+    }
+
+    public void sentRequest(Class c, final String path, Object object, int actionId) {
+
+        requestSerives = InitRetrofit.getInstance().getRetrofit(ROOT_URl);
+
+        Log.i("startRequest", "请求接口为：---->" + ROOT_URl + path);
+
+        Log.i("startRequest", "请求参数为：---->" + new Gson().toJson(object));
+
+        if (requestSerives != null) {
+
+            call = requestSerives.getResponseInfo(path, HTTPUtils.getRequestBody(path, object));
+
+            ServiceHelper.callEntity(call, c, new OnResonseListener<Object>() {
+
+                @Override
+                public void onSucess(Object info, int actionId) {
+                    onRequestSucess(info, actionId);
+                }
+
+                @Override
+                public void onClientError(String errorMsg, int actionId) {
+                    onRequestClientError(errorMsg, actionId);
+                }
+
+                @Override
+                public void onServerError(String errorCode, String errorMsg, int actionId) {
+                    onRequestServerError(errorCode, errorMsg, actionId);
+                }
+            }, actionId);
+
+        } else {
+            // 无网络
+            onNetWorkError("您的网络已断开，请检查");
+        }
     }
 
     public void startRequest(Class c, final String path, Map<String, String> params, String requestType, int actionId) {

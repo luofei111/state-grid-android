@@ -19,6 +19,7 @@ import com.nx.stategrid.adapter.holder.QuestionNormalSelectHolder;
 import com.nx.stategrid.adapter.holder.QuestionSectionHolder;
 import com.nx.stategrid.adapter.holder.QuestionSubTitleHolder;
 import com.nx.stategrid.adapter.holder.QuestionTextHolder;
+import com.nx.stategrid.dto.BodyBean;
 import com.nx.stategrid.dto.QuestionInfo;
 
 import java.util.HashMap;
@@ -48,24 +49,40 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private Context mContext;
 
-    private List<QuestionInfo.DataBean.ContentBean.BodyBean> date;
+    private List<BodyBean> date;
 
     private Map<Integer, String> editMap = new HashMap<>();
 
+    private Map<Integer, BodyBean> inputParamsMap = new HashMap<>();
+
     private OprateCallBack oprateCallBack;
+
+    /*private boolean isReport;
+
+    public void setReport(boolean report) {
+        isReport = report;
+    }*/
 
     public void setOprateCallBack(OprateCallBack oprateCallBack) {
         this.oprateCallBack = oprateCallBack;
     }
 
-    public QuestionListAdapter(Context mContext, List<QuestionInfo.DataBean.ContentBean.BodyBean> date) {
+    public Map<Integer, BodyBean> getInputParamsMap() {
+        return inputParamsMap;
+    }
+
+    public QuestionListAdapter(Context mContext, List<BodyBean> date) {
         this.mContext = mContext;
         this.date = date;
     }
 
+    public List<BodyBean> getDate() {
+        return date;
+    }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        QuestionInfo.DataBean.ContentBean.BodyBean bean = date.get(position);
+        BodyBean bean = date.get(position);
         if (holder instanceof QuestionHeaderHolder) {
             QuestionHeaderHolder headerHolder = (QuestionHeaderHolder) holder;
             headerHolder.setText(R.id.header_tv, bean.getName());
@@ -86,12 +103,15 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             mathSelectHolder.setText(R.id.math_select_title_tv, bean.getName());
             mathSelectHolder.setText(R.id.math_select_tv, bean.getValue());
 
-            mathSelectHolder.setOnClickListener(R.id.math_select_tv, new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    oprateCallBack.mathSelectCallBack(position);
-                }
-            });
+            //if (!isReport) {
+                mathSelectHolder.setOnClickListener(R.id.math_select_tv, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        oprateCallBack.mathSelectCallBack(position);
+                    }
+                });
+            //}
+
         }
 
         if (holder instanceof QuestionNormalSelectHolder) {
@@ -99,12 +119,15 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             normalSelectHolder.setText(R.id.math_select_title_tv, bean.getName());
             normalSelectHolder.setText(R.id.math_select_tv, bean.getValue());
 
-            normalSelectHolder.setOnClickListener(R.id.math_select_tv, new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    oprateCallBack.nomalSelectCallBack(position);
-                }
-            });
+            //if (!isReport) {
+                normalSelectHolder.setOnClickListener(R.id.math_select_tv, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        oprateCallBack.nomalSelectCallBack(position);
+                    }
+                });
+            //}
+
         }
 
         if (holder instanceof QuestionSectionHolder) {
@@ -117,7 +140,8 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             inputHolder.setText(R.id.input_tv, bean.getName());
 
             EditText editText = inputHolder.itemView.findViewById(R.id.input_edit);
-            editText.setText(editMap.get(position));
+            //editText.setText(editMap.get(position));
+            editText.setText(date.get(position).getValue());
 
             editText.setTag(position);
 
@@ -136,10 +160,16 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 public void afterTextChanged(Editable s) {
                     int tagPosition = (int) editText.getTag();
                     if (tagPosition == position && editText.hasFocus()) {
-                        editMap.put(position, s.toString());
+                        //editMap.put(position, s.toString());
+                        inputParamsMap.put(position, date.get(position));
+                        date.get(position).setValue(s.toString());
                     }
                 }
             });
+
+            /*if (isReport) {
+                editText.setEnabled(false);
+            }*/
         }
     }
 

@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">state-grid-android</string>
+    <string name="app_name">二次检修报告</string>
     <string name="nx_state_grid">国网宁夏电力有限公司</string>
     <string name="template_manager">模板管理</string>
     <string name="commit_record">提交记录</string>
+    <string name="report_list">报告列表</string>
 
-    <string name="template1">110kV母差保护检验报告</string>
-    <string name="template2">220kV常规站220kV线路保护报告</string>
+    <string name="template_title1">110kV母差保护检验报告</string>
+    <string name="template_title2">220kV常规站220kV线路保护报告</string>
 </resources>

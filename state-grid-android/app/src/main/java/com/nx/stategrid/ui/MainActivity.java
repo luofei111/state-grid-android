@@ -1,10 +1,11 @@
-package com.nx.stategrid;
+package com.nx.stategrid.ui;
 
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.nun.lib_base.mvp.MvpActivity;
+import com.nx.stategrid.R;
 import com.nx.stategrid.adapter.MenuListAdapter;
 import com.nx.stategrid.dto.Menu;
 import com.nx.stategrid.presenter.MainPresenter;
@@ -33,8 +34,8 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         MenuListAdapter adapter = new MenuListAdapter(this, R.layout.menu_list_item_layout);
         mainMenuGrid.setAdapter(adapter);
         List<Menu> menus = new ArrayList<>();
-        menus.add(new Menu(getResources().getString(R.string.template_manager), R.mipmap.add_group_icon));
-        menus.add(new Menu(getResources().getString(R.string.commit_record), R.mipmap.add_group_icon));
+        menus.add(new Menu("",getResources().getString(R.string.template_manager), R.mipmap.mune_modle_icon));
+        menus.add(new Menu("",getResources().getString(R.string.commit_record), R.mipmap.menu_history_icon));
         adapter.setData(menus);
 
         adapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
@@ -49,7 +50,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                         break;
 
                     case "提交记录":
-
+                        startActivity(new Intent(MainActivity.this, RecordListActivity.class));
                         break;
                 }
             }
