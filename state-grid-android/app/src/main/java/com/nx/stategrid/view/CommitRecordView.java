@@ -1,5 +1,6 @@
 package com.nx.stategrid.view;
 
+import com.nun.lib_base.http.BaseResponse;
 import com.nun.lib_base.mvp.BaseView;
 
 /**
@@ -9,5 +10,5 @@ import com.nun.lib_base.mvp.BaseView;
  */
 public interface CommitRecordView extends BaseView {
 
-    void setUploadResult();
+    void setUploadResult(BaseResponse baseResponse);
 }

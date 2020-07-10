@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:paddingTop="@dimen/dimen_5">
+    android:paddingTop="@dimen/dimen_10">
 
     <TextView
         android:id="@+id/math_select_title_tv"

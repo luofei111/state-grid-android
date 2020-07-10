@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 
 import com.google.gson.Gson;
+import com.mylhyl.circledialog.CircleDialog;
+import com.mylhyl.circledialog.callback.ConfigButton;
+import com.mylhyl.circledialog.params.ButtonParams;
 import com.nun.lib_base.http.BaseResponse;
 import com.nun.lib_base.mvp.MvpActivity;
 import com.nun.lib_base.utils.SPUtils;
@@ -77,8 +80,24 @@ public class RecordListActivity extends MvpActivity<CommitRecordView, CommitReco
     }
 
     @Override
-    public void setUploadResult() {
-        toast("上传成功");
+    public void setUploadResult(BaseResponse uploadResult) {
+        new CircleDialog.Builder()
+                .setWidth(0.8f)
+                .setText("上传成功")
+                .setPositive("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                })
+                .configPositive(new ConfigButton() {
+                    @Override
+                    public void onConfig(ButtonParams params) {
+                        params.textSize = 16;
+                        params.topMargin = 0;
+                    }
+                })
+                .show(getSupportFragmentManager());
     }
 
     public List<CommitRecord> getCommitRecord() {
@@ -161,6 +180,6 @@ public class RecordListActivity extends MvpActivity<CommitRecordView, CommitReco
 
     @Override
     public void onError(String errorInfo) {
-
+        toast(errorInfo);
     }
 }

@@ -1,5 +1,6 @@
 package com.nx.stategrid.presenter;
 
+import com.nun.lib_base.http.BaseResponse;
 import com.nun.lib_base.mvp.BasePresent;
 import com.nx.stategrid.view.CommitRecordView;
 
@@ -27,7 +28,7 @@ public class CommitRecordPresenter extends BasePresent<CommitRecordView> {
 
         switch (actionId) {
             case 1:
-                view.setUploadResult();
+                view.setUploadResult((BaseResponse) info);
                 break;
         }
 
@@ -35,17 +36,17 @@ public class CommitRecordPresenter extends BasePresent<CommitRecordView> {
 
     @Override
     public void onRequestClientError(String errorMsg, int actionId) {
-
+        view.onError(errorMsg);
     }
 
     @Override
     public void onNetWorkError(String errorMsg) {
-
+        view.onError(errorMsg);
     }
 
     @Override
     public void onRequestServerError(String errorCode, String errorMsg, int actionId) {
-
+        view.onError(errorMsg);
     }
 
     @Override

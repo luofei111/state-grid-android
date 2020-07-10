@@ -11,11 +11,13 @@ import android.widget.EditText;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.nun.lib_base.utils.StringUtils;
 import com.nx.stategrid.R;
 import com.nx.stategrid.adapter.holder.QuestionHeaderHolder;
 import com.nx.stategrid.adapter.holder.QuestionInputHolder;
 import com.nx.stategrid.adapter.holder.QuestionMathSelectHolder;
 import com.nx.stategrid.adapter.holder.QuestionNormalSelectHolder;
+import com.nx.stategrid.adapter.holder.QuestionOtherHolder;
 import com.nx.stategrid.adapter.holder.QuestionSectionHolder;
 import com.nx.stategrid.adapter.holder.QuestionSubTitleHolder;
 import com.nx.stategrid.adapter.holder.QuestionTextHolder;
@@ -101,33 +103,31 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (holder instanceof QuestionMathSelectHolder) {
             QuestionMathSelectHolder mathSelectHolder = (QuestionMathSelectHolder) holder;
             mathSelectHolder.setText(R.id.math_select_title_tv, bean.getName());
-            mathSelectHolder.setText(R.id.math_select_tv, bean.getValue());
-
-            //if (!isReport) {
-                mathSelectHolder.setOnClickListener(R.id.math_select_tv, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        oprateCallBack.mathSelectCallBack(position);
-                    }
-                });
-            //}
-
+            if (!StringUtils.isEmpty(bean.getValue())) {
+                mathSelectHolder.setText(R.id.math_select_tv, bean.getValue());
+            }
+            mathSelectHolder.setOnClickListener(R.id.math_select_tv, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    oprateCallBack.mathSelectCallBack(position);
+                }
+            });
         }
 
         if (holder instanceof QuestionNormalSelectHolder) {
             QuestionNormalSelectHolder normalSelectHolder = (QuestionNormalSelectHolder) holder;
             normalSelectHolder.setText(R.id.math_select_title_tv, bean.getName());
-            normalSelectHolder.setText(R.id.math_select_tv, bean.getValue());
-
-            //if (!isReport) {
-                normalSelectHolder.setOnClickListener(R.id.math_select_tv, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        oprateCallBack.nomalSelectCallBack(position);
-                    }
-                });
-            //}
-
+            if (!StringUtils.isEmpty(bean.getValue())) {
+                normalSelectHolder.setText(R.id.math_select_tv, bean.getValue());
+            } else {
+                normalSelectHolder.setText(R.id.math_select_tv, "正确");
+            }
+            normalSelectHolder.setOnClickListener(R.id.math_select_tv, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    oprateCallBack.nomalSelectCallBack(position);
+                }
+            });
         }
 
         if (holder instanceof QuestionSectionHolder) {
@@ -140,7 +140,6 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             inputHolder.setText(R.id.input_tv, bean.getName());
 
             EditText editText = inputHolder.itemView.findViewById(R.id.input_edit);
-            //editText.setText(editMap.get(position));
             editText.setText(date.get(position).getValue());
 
             editText.setTag(position);
@@ -166,50 +165,40 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     }
                 }
             });
+        }
+        if (holder instanceof QuestionOtherHolder) {
 
-            /*if (isReport) {
-                editText.setEnabled(false);
-            }*/
         }
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View view;
         if (viewType == VIEW_TYPE_HEADER) {
-
             view = getView(R.layout.question_header_item_layout, parent);
             return new QuestionHeaderHolder(view, mContext);
         } else if (viewType == VIEW_TYPE_SUBTITLE) {
-
             view = getView(R.layout.question_subtitle_item_layout, parent);
             return new QuestionSubTitleHolder(view, mContext);
         } else if (viewType == VIEW_TYPE_SECTION) {
-
             view = getView(R.layout.question_section_item_layout, parent);
             return new QuestionSectionHolder(view, mContext);
         } else if (viewType == VIEW_TYPE_TEXT) {
-
             view = getView(R.layout.question_text_item_layout, parent);
             return new QuestionTextHolder(view, mContext);
         } else if (viewType == VIEW_TYPE_MATHSELECT) {
-
             view = getView(R.layout.question_mathselect_item_layout, parent);
             return new QuestionMathSelectHolder(view, mContext);
         } else if (viewType == VIEW_TYPE_NORMALSELECT) {
-
             view = getView(R.layout.question_mathselect_item_layout, parent);
             return new QuestionNormalSelectHolder(view, mContext);
         } else if (viewType == VIEW_TYPE_INPUT) {
-
             view = getView(R.layout.question_input_item_layout, parent);
             return new QuestionInputHolder(view, mContext);
         } else {
             view = getView(R.layout.question_section_item_layout, parent);
-            return new QuestionSectionHolder(view, mContext);
+            return new QuestionOtherHolder(view, mContext);
         }
-
     }
 
     @Override

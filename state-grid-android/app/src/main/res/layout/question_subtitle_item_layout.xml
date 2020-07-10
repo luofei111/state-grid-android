@@ -15,7 +15,7 @@
         android:id="@+id/subtitle_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="1接线紧固"
+        android:text="--"
         android:textColor="@color/fontcolorblack"
         android:textSize="@dimen/font_28" />
 
