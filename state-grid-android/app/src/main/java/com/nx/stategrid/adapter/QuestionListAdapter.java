@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.nun.lib_base.utils.StringUtils;
 import com.nx.stategrid.R;
 import com.nx.stategrid.adapter.holder.QuestionHeaderHolder;
@@ -27,6 +25,8 @@ import com.nx.stategrid.dto.QuestionInfo;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @Auther: luofei

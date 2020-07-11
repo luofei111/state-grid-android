@@ -8,24 +8,27 @@ import java.io.Serializable;
 
 public class BaseResponse<T> implements Serializable {
 
-    private boolean success;
-    private String message;
+    //private boolean success;
+    //private String message;
+
+    private String msg;
+    private Integer code;
     private T data;
 
-    public boolean isSuccess() {
-        return success;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public String getMessage() {
-        return message;
+    public Integer getCode() {
+        return code;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
     public T getData() {

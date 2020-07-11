@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 
 import com.nun.lib_base.mvp.MvpActivity;
-import com.nun.lib_base.utils.date.Constants;
 import com.nx.stategrid.R;
 import com.nx.stategrid.adapter.MenuListAdapter;
 import com.nx.stategrid.dto.Menu;
@@ -49,8 +48,8 @@ public class TemplateManagerActivity extends MvpActivity<TemplateManagerView, Te
         MenuListAdapter adapter = new MenuListAdapter(this, R.layout.menu_list_item_layout);
         templateManagerGrid.setAdapter(adapter);
         List<Menu> menus = new ArrayList<>();
-        menus.add(new Menu(Constans.reportId1, getResources().getString(R.string.template_title1), R.mipmap.modle_icon));
-        menus.add(new Menu(Constans.reportId2, getResources().getString(R.string.template_title2), R.mipmap.modle_icon));
+        menus.add(new Menu(Constans.templateId1, "", getResources().getString(R.string.template_title1), R.mipmap.modle_icon));
+        menus.add(new Menu(Constans.templateId2, "", getResources().getString(R.string.template_title2), R.mipmap.modle_icon));
         adapter.setData(menus);
 
         adapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
@@ -60,6 +59,7 @@ public class TemplateManagerActivity extends MvpActivity<TemplateManagerView, Te
                 startActivityForResult(new Intent(TemplateManagerActivity.this, QuestionActivity.class)
                         .putExtra("title", menu.getTitle())
                         .putExtra("isReport", false)
+                        .putExtra("templateId", menu.getTemplateId())
                         .putExtra("reportId", menu.getReportId()), 100);
             }
         });

@@ -31,15 +31,14 @@ public abstract class RequestCallBack implements Callback<BaseResponse> {
     }
 
     private void handleMsg(BaseResponse baseResponse) {
-        boolean success = baseResponse.isSuccess();
-        String retMsg = baseResponse.getMessage();
-
-        if (success) {
+        int code = baseResponse.getCode();
+        String retMsg = baseResponse.getMsg();
+        if (code == 200) {
             // 请求成功
             onSucess(GsonHelper.objectToJSONString(baseResponse));
         } else {
             // 请求失败
-            onError(success + "", retMsg);
+            onError(code + "", retMsg);
         }
     }
 

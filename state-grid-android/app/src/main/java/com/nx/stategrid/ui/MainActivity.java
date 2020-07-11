@@ -34,8 +34,8 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         MenuListAdapter adapter = new MenuListAdapter(this, R.layout.menu_list_item_layout);
         mainMenuGrid.setAdapter(adapter);
         List<Menu> menus = new ArrayList<>();
-        menus.add(new Menu("",getResources().getString(R.string.template_manager), R.mipmap.mune_modle_icon));
-        menus.add(new Menu("",getResources().getString(R.string.commit_record), R.mipmap.menu_history_icon));
+        menus.add(new Menu("", "", getResources().getString(R.string.template_manager), R.mipmap.mune_modle_icon));
+        menus.add(new Menu("", "", getResources().getString(R.string.commit_record), R.mipmap.menu_history_icon));
         adapter.setData(menus);
 
         adapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {

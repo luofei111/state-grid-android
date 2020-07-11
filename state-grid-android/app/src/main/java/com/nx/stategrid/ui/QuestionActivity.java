@@ -3,12 +3,7 @@ package com.nx.stategrid.ui;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.viewpager.widget.ViewPager;
-
 import com.google.gson.Gson;
-import com.nun.lib_base.http.GsonHelper;
 import com.nun.lib_base.mvp.MvpActivity;
 import com.nun.lib_base.utils.SPUtils;
 import com.nx.stategrid.R;
@@ -20,11 +15,10 @@ import com.nx.stategrid.utils.AssetsUtils;
 import com.nx.stategrid.utils.Constans;
 import com.nx.stategrid.view.QuestionView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import butterknife.BindView;
 
 /**
@@ -52,6 +46,8 @@ public class QuestionActivity extends MvpActivity<QuestionView, QuestionPresente
 
     private String reportId;
 
+    private String templateId;
+
     @Override
     public void initView() {
         inflateLayout(R.layout.activity_questioninfo_layout);
@@ -61,6 +57,7 @@ public class QuestionActivity extends MvpActivity<QuestionView, QuestionPresente
     public void initData() {
         title = getIntent().getStringExtra("title");
         reportId = getIntent().getStringExtra("reportId");
+        templateId = getIntent().getStringExtra("templateId");
         isReport = getIntent().getBooleanExtra("isReport", false);
         // Map<String, String> params = new HashMap<>();
         // presenter.startRequest(QuestionInfo.class, url, params, "GET", 1);
@@ -70,7 +67,7 @@ public class QuestionActivity extends MvpActivity<QuestionView, QuestionPresente
         if (isReport) {
             questionInfo = new Gson().fromJson((String) SPUtils.get(QuestionActivity.this, reportId, ""), QuestionInfo.class);
         } else {
-            if (Constans.reportId1.equals(reportId)){
+            if (Constans.templateId1.equals(templateId)){
                 questionInfo = new Gson().fromJson(AssetsUtils.getJsonStr(this, "templatefile1"), QuestionInfo.class);
             }else {
                 questionInfo = new Gson().fromJson(AssetsUtils.getJsonStr(this, "templatefile2"), QuestionInfo.class);
@@ -87,14 +84,15 @@ public class QuestionActivity extends MvpActivity<QuestionView, QuestionPresente
 
         homeData.addAll(bodyData);
 
-        // String questionInfoStr = new Gson().toJson(questionInfo);
-        // SPUtils.put(this, questionInfo.getData().getReportId(), questionInfoStr);
-
         QuestionFragment questionFragment = new QuestionFragment(homeData);
-        questionFragment.setTitle(title);
+
+        //questionFragment.setTitle(title);
+        questionFragment.setmQuestionInfo(questionInfo);
         questionFragment.setHomeLength(homeLenth);
-        questionFragment.setReportId(questionInfo.getData().getReportId());
+        //questionFragment.setReportId(questionInfo.getData().getReportId());
         questionFragment.setReport(isReport);
+        //questionFragment.setTemplateId(templateId);
+
         //fragments.add(questionFragment);
 
         //adapter = new MyViewPagerAdapter(getSupportFragmentManager(), fragments);

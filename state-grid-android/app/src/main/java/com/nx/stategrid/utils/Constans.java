@@ -7,7 +7,11 @@ package com.nx.stategrid.utils;
  */
 public class Constans {
 
-    public static String reportId1 = "123014204";
+    public static String templateId1 = "10001";
 
-    public static String reportId2 = "123014205";
+    public static String templateId2 = "10002";
+
+    public static String reportIds = "reportIds";
+
+    public static String reportList = "reportList";
 }

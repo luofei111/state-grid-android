@@ -26,6 +26,9 @@ import com.nx.stategrid.weiget.recycleview.BaseRecycleViewAdapter;
 import com.nx.stategrid.weiget.recycleview.BaseRecycleViewList;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import butterknife.BindView;
@@ -43,6 +46,10 @@ public class RecordListActivity extends MvpActivity<CommitRecordView, CommitReco
     private CommitRecordListAdapter adapter;
 
     private String uploadUrl = "genContract";
+
+    private CommitRecord mCommitRecord;
+
+    private int mPosition;
 
     @Override
     public void initView() {
@@ -65,6 +72,7 @@ public class RecordListActivity extends MvpActivity<CommitRecordView, CommitReco
                 startActivityForResult(new Intent(RecordListActivity.this, QuestionActivity.class)
                         .putExtra("title", commitRecord.getReportTitle())
                         .putExtra("isReport", true)
+                        .putExtra("templateId", commitRecord.getTemplateId())
                         .putExtra("reportId", commitRecord.getReportId()), 100);
             }
         });
@@ -72,7 +80,11 @@ public class RecordListActivity extends MvpActivity<CommitRecordView, CommitReco
     }
 
     @Override
-    public void reportUpload(CommitRecord model) {
+    public void reportUpload(CommitRecord model, int position) {
+
+        mCommitRecord = model;
+
+        mPosition = position;
 
         QuestionInfo questionInfo = new Gson().fromJson((String) SPUtils.get(RecordListActivity.this, model.getReportId(), ""), QuestionInfo.class);
 
@@ -98,21 +110,34 @@ public class RecordListActivity extends MvpActivity<CommitRecordView, CommitReco
                     }
                 })
                 .show(getSupportFragmentManager());
+
+        // 更新SP数据
+        List<CommitRecord> commitRecords = getCommitRecord();
+        for (CommitRecord record : commitRecords) {
+            if (record.getReportId().equals(mCommitRecord.getReportId())) {
+                record.setStatus(1);
+                String commitRecordStr = new Gson().toJson(record);
+                SPUtils.put(this, record.getReportId() + Constans.reportList, commitRecordStr);
+            }
+        }
+        adapter.setData(commitRecords);
+        adapter.notifyDataSetChanged();
     }
 
     public List<CommitRecord> getCommitRecord() {
         List<CommitRecord> commitRecords = new ArrayList<>();
 
-        List<String> reportIds = new ArrayList<>();
-        reportIds.add(Constans.reportId1 + "-overview");
-        reportIds.add(Constans.reportId2 + "-overview");
-
-        for (String reportId : reportIds) {
-            String commmitRecordStr = (String) SPUtils.get(this, reportId, "");
-            if (!StringUtils.isEmpty(commmitRecordStr)) {
-                commitRecords.add(new Gson().fromJson(commmitRecordStr, CommitRecord.class));
+        HashSet<String> reportSet = (HashSet<String>) SPUtils.get(this, Constans.reportIds, new HashSet<String>());
+        if (reportSet != null) {
+            for (String reportId : reportSet) {
+                String commmitRecordStr = (String) SPUtils.get(this, reportId + Constans.reportList, "");
+                if (!StringUtils.isEmpty(commmitRecordStr)) {
+                    commitRecords.add(new Gson().fromJson(commmitRecordStr, CommitRecord.class));
+                }
             }
         }
+
+        Collections.sort(commitRecords, new CommitRecord());
 
         return commitRecords;
     }

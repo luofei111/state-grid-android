@@ -19,11 +19,6 @@ public class CommitRecordPresenter extends BasePresent<CommitRecordView> {
     }
 
     @Override
-    public void startRequest(Class c, String path, Map<String, String> params, String requestType, int actionId) {
-        super.startRequest(c, path, params, requestType, actionId);
-    }
-
-    @Override
     public void onRequestSucess(Object info, int actionId) {
 
         switch (actionId) {

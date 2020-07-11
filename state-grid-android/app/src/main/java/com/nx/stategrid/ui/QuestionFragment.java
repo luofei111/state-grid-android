@@ -1,8 +1,6 @@
 package com.nx.stategrid.ui;
 
-import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +11,8 @@ import com.google.gson.Gson;
 import com.mylhyl.circledialog.CircleDialog;
 import com.mylhyl.circledialog.callback.ConfigButton;
 import com.mylhyl.circledialog.callback.ConfigItems;
-import com.mylhyl.circledialog.callback.ConfigTitle;
 import com.mylhyl.circledialog.params.ButtonParams;
-import com.mylhyl.circledialog.params.CloseParams;
 import com.mylhyl.circledialog.params.ItemsParams;
-import com.mylhyl.circledialog.params.TitleParams;
-import com.mylhyl.circledialog.res.values.CircleColor;
 import com.mylhyl.circledialog.view.listener.OnLvItemClickListener;
 import com.nun.lib_base.mvp.MvpFragment;
 import com.nun.lib_base.utils.SPUtils;
@@ -34,13 +28,15 @@ import com.nx.stategrid.utils.AssetsUtils;
 import com.nx.stategrid.utils.Constans;
 import com.nx.stategrid.view.QuestionView;
 import com.nx.stategrid.weiget.recycleview.BaseRecycleViewList;
-import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -64,28 +60,22 @@ public class QuestionFragment extends MvpFragment<QuestionView, QuestionPresente
 
     private Map<String, String> paramsMap;
 
-    private String title;
-
     private int homeLength;
 
-    private String reportId;
-
     private boolean isReport;
+
+    private QuestionInfo mQuestionInfo;
 
     public QuestionFragment(List<BodyBean> data) {
         this.data = data;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setmQuestionInfo(QuestionInfo mQuestionInfo) {
+        this.mQuestionInfo = mQuestionInfo;
     }
 
     public void setHomeLength(int homeLength) {
         this.homeLength = homeLength;
-    }
-
-    public void setReportId(String reportId) {
-        this.reportId = reportId;
     }
 
     public void setReport(boolean report) {
@@ -100,11 +90,10 @@ public class QuestionFragment extends MvpFragment<QuestionView, QuestionPresente
 
     @Override
     public void initData() {
-        titleTv.setText(title);
+        titleTv.setText(mQuestionInfo.getData().getReportName());
         paramsMap = new HashMap<>();
         adapter = new QuestionListAdapter(getActivity(), data);
         adapter.setOprateCallBack(this);
-        // adapter.setReport(isReport);
         questionRecycleList.setAdapter(adapter);
     }
 
@@ -116,33 +105,40 @@ public class QuestionFragment extends MvpFragment<QuestionView, QuestionPresente
                 List<BodyBean> homeData = adapter.getDate().subList(0, homeLength);
                 List<BodyBean> bodyData = adapter.getDate().subList(homeLength, adapter.getDate().size());
 
-                // String questionInfoJson = (String) SPUtils.get(getActivity(), reportId, "");
+                mQuestionInfo.getData().getContent().setHome(homeData);
 
-                // QuestionInfo questionInfo = new Gson().fromJson(questionInfoJson, QuestionInfo.class);
+                mQuestionInfo.getData().getContent().setBody(bodyData);
 
-                // ?
-
-                QuestionInfo questionInfo;
-                if (Constans.reportId1.equals(reportId)){
-                    questionInfo = new Gson().fromJson(AssetsUtils.getJsonStr(getActivity(), "templatefile1"), QuestionInfo.class);
-                }else {
-                    questionInfo = new Gson().fromJson(AssetsUtils.getJsonStr(getActivity(), "templatefile2"), QuestionInfo.class);
+                HashSet<String> reportSet = (HashSet<String>) SPUtils.get(getActivity(), Constans.reportIds, new HashSet<String>());
+                if (reportSet == null) {
+                    reportSet = new HashSet();
+                }
+                String reportId = mQuestionInfo.getData().getReportId();
+                if (isReport) {
+                    // 修改报告
+                } else {
+                    // 提交报告
+                    reportId = UUID.randomUUID().toString();
                 }
 
-                questionInfo.getData().getContent().setHome(homeData);
+                // 保存reportId集合
+                reportSet.add(reportId);
+                SPUtils.put(getActivity(), Constans.reportIds, reportSet);
 
-                questionInfo.getData().getContent().setBody(bodyData);
+                // 保存报告
+                mQuestionInfo.getData().setReportId(reportId);
+                String questionInfoStr = new Gson().toJson(mQuestionInfo);
+                SPUtils.put(getActivity(), reportId, questionInfoStr);
 
-                // 保存提交记录（reportId）
-                String questionInfoStr = new Gson().toJson(questionInfo);
-                SPUtils.put(getActivity(), questionInfo.getData().getReportId(), questionInfoStr);
-
+                // 保存记录列表
                 CommitRecord commitRecord = new CommitRecord();
-                commitRecord.setReportId(questionInfo.getData().getReportId());
-                commitRecord.setReportTitle(questionInfo.getData().getReportName());
+                commitRecord.setReportId(reportId);
+                commitRecord.setTemplateId(mQuestionInfo.getData().getTemplateId());
+                commitRecord.setReportTitle(mQuestionInfo.getData().getReportName());
                 commitRecord.setReportTime(DateUtil.getDateCn(new Date()));
+                commitRecord.setCreateDate(System.currentTimeMillis());
                 for (BodyBean homeDatum : homeData) {
-                    if ("stationName".equals(homeDatum.getKey())) {
+                    if ("00004".equals(homeDatum.getKey())) {
                         commitRecord.setReportPerson(homeDatum.getValue());
                     }
                     if ("00002".equals(homeDatum.getKey())) {
@@ -154,7 +150,7 @@ public class QuestionFragment extends MvpFragment<QuestionView, QuestionPresente
                 }
 
                 String commitRecordStr = new Gson().toJson(commitRecord);
-                SPUtils.put(getActivity(), questionInfo.getData().getReportId() + "-overview", commitRecordStr);
+                SPUtils.put(getActivity(), reportId + Constans.reportList, commitRecordStr);
                 getActivity().setResult(200);
                 getActivity().finish();
                 break;
