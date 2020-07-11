@@ -11,19 +11,19 @@
                     "contentType": "input",
                     "name": "站名",
                     "key": "00001",
-                    "value": "100KV站"
+                    "value": ""
                 },
                 {
                     "contentType": "input",
                     "name": "设备名称",
                     "key": "00002",
-                    "value": "设备1号测试"
+                    "value": ""
                 },
                 {
                     "contentType": "input",
                     "name": "检验性质",
                     "key": "00003",
-                    "value": "日常维护"
+                    "value": ""
                 },
                 {
                     "contentType": "input",

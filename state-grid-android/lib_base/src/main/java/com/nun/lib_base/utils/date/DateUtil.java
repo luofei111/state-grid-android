@@ -611,6 +611,10 @@ public class DateUtil {
         return DateToString(date, DateStyle.YYYY_MM_DD_CN);
     }
 
+    public static String getDateTimeCn(Date date) {
+        return DateToString(date, DateStyle.YYYY_MM_DD_HH_MM_CN);
+    }
+
     /**
      * 获取日期的时间。默认HH:mm:ss格式。失败返回null。
      *

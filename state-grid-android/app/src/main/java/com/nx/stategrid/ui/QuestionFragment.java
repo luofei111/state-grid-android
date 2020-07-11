@@ -29,6 +29,7 @@ import com.nx.stategrid.utils.Constans;
 import com.nx.stategrid.view.QuestionView;
 import com.nx.stategrid.weiget.recycleview.BaseRecycleViewList;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -119,6 +120,8 @@ public class QuestionFragment extends MvpFragment<QuestionView, QuestionPresente
                 } else {
                     // 提交报告
                     reportId = UUID.randomUUID().toString();
+                    //reportId = getOrderNo();
+                    //toast(reportId);
                 }
 
                 // 保存reportId集合
@@ -135,10 +138,10 @@ public class QuestionFragment extends MvpFragment<QuestionView, QuestionPresente
                 commitRecord.setReportId(reportId);
                 commitRecord.setTemplateId(mQuestionInfo.getData().getTemplateId());
                 commitRecord.setReportTitle(mQuestionInfo.getData().getReportName());
-                commitRecord.setReportTime(DateUtil.getDateCn(new Date()));
+                commitRecord.setReportTime(DateUtil.getDateTimeCn(new Date()));
                 commitRecord.setCreateDate(System.currentTimeMillis());
                 for (BodyBean homeDatum : homeData) {
-                    if ("00004".equals(homeDatum.getKey())) {
+                    if ("00005".equals(homeDatum.getKey())) {
                         commitRecord.setReportPerson(homeDatum.getValue());
                     }
                     if ("00002".equals(homeDatum.getKey())) {
@@ -207,6 +210,25 @@ public class QuestionFragment extends MvpFragment<QuestionView, QuestionPresente
     @Override
     public void onClicked(View v, int action, String extra) {
 
+    }
+
+    /**
+     * 生成报告编号
+     *
+     * @return
+     */
+    public static synchronized String getOrderNo() {
+        String date = "";
+        long orderNum = 0;
+        String str = new SimpleDateFormat("yyMMddHHmm").format(new Date());
+        if (date == null || !date.equals(str)) {
+            date = str;
+            orderNum = 0l;
+        }
+        orderNum++;
+        long orderNo = Long.parseLong((date)) * 10000;
+        orderNo += orderNum;
+        return orderNo + "";
     }
 
     @Override
