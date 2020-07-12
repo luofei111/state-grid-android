@@ -31,6 +31,7 @@ public abstract class MvpActivity<V, P extends BasePresent<V>> extends FragmentA
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         initView();
         presenter = initPresenter();
         presenter.attach((V) this);
