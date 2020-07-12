@@ -6,5 +6,5 @@
     <string name="report_list">报告列表</string>
 
     <string name="template_title1">110kV母差保护检验报告</string>
-    <string name="template_title2">220kV常规站220kV线路保护报告</string>
+    <string name="template_title2">220kV线路保护检验报告</string>
 </resources>
