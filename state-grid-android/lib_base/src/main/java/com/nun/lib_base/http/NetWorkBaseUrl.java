@@ -7,5 +7,5 @@ package com.nun.lib_base.http;
  */
 public class NetWorkBaseUrl {
 
-    public static final String ROOT_URl = "http://192.168.1.4:8080/";
+    public static final String ROOT_URl = "http://192.168.1.100:8080/";
 }

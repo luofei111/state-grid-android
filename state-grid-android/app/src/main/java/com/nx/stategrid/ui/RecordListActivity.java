@@ -165,12 +165,12 @@ public class RecordListActivity extends MvpActivity<CommitRecordView, CommitReco
 
     @Override
     public void showProgress() {
-
+        showProcessDialog("正在上传中...");
     }
 
     @Override
     public void hideProgress() {
-
+        closeProcessDialog();
     }
 
     @Override
