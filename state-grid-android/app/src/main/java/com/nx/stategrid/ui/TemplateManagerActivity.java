@@ -1,5 +1,6 @@
 package com.nx.stategrid.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import com.nx.stategrid.R;
 import com.nx.stategrid.adapter.MenuListAdapter;
 import com.nx.stategrid.dto.Menu;
 import com.nx.stategrid.presenter.TemplateManagerPresenter;
+import com.nx.stategrid.utils.CommUtils;
 import com.nx.stategrid.utils.Constans;
 import com.nx.stategrid.view.TemplateManagerView;
 import com.nx.stategrid.weiget.recycleview.BaseRecycleViewAdapter;
@@ -39,7 +41,6 @@ public class TemplateManagerActivity extends MvpActivity<TemplateManagerView, Te
     public void initView() {
         inflateLayout(R.layout.activity_template_manager_layout);
         titleBar.setListener(this);
-
         templateManagerGrid.setColumNum(4, false);
     }
 
@@ -47,20 +48,20 @@ public class TemplateManagerActivity extends MvpActivity<TemplateManagerView, Te
     public void initData() {
         MenuListAdapter adapter = new MenuListAdapter(this, R.layout.menu_list_item_layout);
         templateManagerGrid.setAdapter(adapter);
-        List<Menu> menus = new ArrayList<>();
-        menus.add(new Menu(Constans.templateId1, "", getResources().getString(R.string.template_title1), R.mipmap.modle_icon));
-        menus.add(new Menu(Constans.templateId2, "", getResources().getString(R.string.template_title2), R.mipmap.modle_icon));
+        List<Menu> menus = CommUtils.getMenus(this);
         adapter.setData(menus);
 
         adapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(ViewGroup parent, View v, int position) {
-                Menu menu = (Menu) v.getTag();
-                startActivityForResult(new Intent(TemplateManagerActivity.this, QuestionActivity.class)
-                        .putExtra("title", menu.getTitle())
-                        .putExtra("isReport", false)
-                        .putExtra("templateId", menu.getTemplateId())
-                        .putExtra("reportId", menu.getReportId()), 100);
+                if (position == 0 || position == 1) {
+                    Menu menu = (Menu) v.getTag();
+                    startActivityForResult(new Intent(TemplateManagerActivity.this, QuestionActivity.class)
+                            .putExtra("title", menu.getTitle())
+                            .putExtra("isReport", false)
+                            .putExtra("templateId", menu.getTemplateId())
+                            .putExtra("reportId", menu.getReportId()), 100);
+                }
             }
         });
     }

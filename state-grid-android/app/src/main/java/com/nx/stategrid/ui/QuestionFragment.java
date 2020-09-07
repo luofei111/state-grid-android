@@ -120,8 +120,6 @@ public class QuestionFragment extends MvpFragment<QuestionView, QuestionPresente
                 } else {
                     // 提交报告
                     reportId = UUID.randomUUID().toString();
-                    //reportId = getOrderNo();
-                    //toast(reportId);
                 }
 
                 // 保存reportId集合

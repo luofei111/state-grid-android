@@ -5,6 +5,33 @@
     <string name="commit_record">提交记录</string>
     <string name="report_list">报告列表</string>
 
-    <string name="template_title1">110kV母差保护检验报告</string>
-    <string name="template_title2">220kV线路保护检验报告</string>
+    <string name="template_title1">220kV主变试验报告</string>
+    <string name="template_title2">220kV常规站线路保护报告</string>
+    <string name="template_title3">110kV主变试验报告</string>
+    <string name="template_title4">110kV线路试验报告</string>
+    <string name="template_title5">35/10kV试验报告</string>
+   <!-- <string name="template_title6">220kV智能站110kV线路定检</string>
+    <string name="template_title7">220kV常规站110kV线路保护定检报告</string>
+    <string name="template_title8">110kV常规站主变保护定检报告</string>
+    <string name="template_title9">110kV常规站110kV线路保护定检报告</string>
+    <string name="template_title10">110kV智能站主变定检报告</string>
+    <string name="template_title11">110kV智能站110kV线路定检报告</string>
+    <string name="template_title12">35kV线路保护检验报告</string>
+    <string name="template_title13">35kV接地变试验报告</string>
+    <string name="template_title14">35kV电容器保护检验报告</string>
+    <string name="template_title15">10kV线路保护检验报告</string>
+    <string name="template_title16">10kV接地变试验报告</string>
+    <string name="template_title17">10kV电容器保护检验报告</string>
+    <string name="template_title18">20kV智能站220kV母联定检报告</string>
+    <string name="template_title19">220kV智能站110kV母联定检报告</string>
+    <string name="template_title20">220kV常规站110kV母联保护定检报告</string>
+    <string name="template_title21">110kV常规站母联保护定检报告</string>
+    <string name="template_title22"> 220kV母差保护检验报告</string>-->
+
+    <!--1、220kV主变试验报告
+    2、220kV线路试验报告
+    3、110kV主变试验报告
+    4、110kV线路试验报告
+    5、35/10kV试验报告-->
 </resources>
+
